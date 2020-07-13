@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-contrib/cors"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	controller "./controllers/controller"
 )
@@ -14,6 +15,7 @@ func main() {
 
 func serve() {
 	router := gin.Default()
+	router.Use(cors.Default())
 	router.Static("/views", "./views")
 	router.StaticFS("/golang-api", http.Dir("./views/static"))
 	router.GET("fetchAllProducts", controller.FetchAllProducts)
